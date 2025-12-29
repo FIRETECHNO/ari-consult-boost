@@ -1,73 +1,73 @@
-import { useState, useEffect } from 'react';
-import { X, Gift, Clock, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useInView } from 'react-intersection-observer';
+import { useState, useEffect } from "react"
+import { X, Gift, Clock, AlertTriangle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useInView } from "react-intersection-observer"
 
 interface OfferPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
 }
 
 const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "" })
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
     days: 2,
     hours: 3,
     minutes: 45,
     seconds: 30,
-  });
+  })
 
   useEffect(() => {
-    if (!isOpen) return;
-    
+    if (!isOpen) return
+
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { days, hours, minutes, seconds } = prev;
-        
-        seconds--;
+      setTimeLeft((prev) => {
+        let { days, hours, minutes, seconds } = prev
+
+        seconds--
         if (seconds < 0) {
-          seconds = 59;
-          minutes--;
+          seconds = 59
+          minutes--
         }
         if (minutes < 0) {
-          minutes = 59;
-          hours--;
+          minutes = 59
+          hours--
         }
         if (hours < 0) {
-          hours = 23;
-          days--;
+          hours = 23
+          days--
         }
         if (days < 0) {
-          days = 0;
-          hours = 0;
-          minutes = 0;
-          seconds = 0;
+          days = 0
+          hours = 0
+          minutes = 0
+          seconds = 0
         }
-        
-        return { days, hours, minutes, seconds };
-      });
-    }, 1000);
 
-    return () => clearInterval(timer);
-  }, [isOpen]);
+        return { days, hours, minutes, seconds }
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [isOpen])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (formData.name && formData.phone) {
-      setIsSubmitted(true);
+      setIsSubmitted(true)
     }
-  };
+  }
 
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-card rounded-xl shadow-2xl w-full max-w-md p-6 md:p-8 border-2 border-accent animate-in zoom-in-95 fade-in duration-300">
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
           aria-label="Закрыть"
@@ -80,11 +80,10 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
           <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Gift className="w-8 h-8 text-accent" />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-foreground mb-2">
-            Первый месяц бесплатно!
-          </h3>
+          <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Первый месяц бесплатно!</h3>
           <p className="text-muted-foreground">
-            В 2026 издержки вырастут — начните бесплатно и <span className="text-accent font-bold">приумножьте капитал!</span>
+            В 2026 издержки вырастут — начните бесплатно и{" "}
+            <span className="text-accent font-bold">приумножьте капитал!</span>
           </p>
         </div>
 
@@ -96,15 +95,13 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
           </div>
           <div className="flex justify-center gap-3">
             {[
-              { value: timeLeft.days, label: 'дн' },
-              { value: timeLeft.hours, label: 'ч' },
-              { value: timeLeft.minutes, label: 'мин' },
-              { value: timeLeft.seconds, label: 'сек' },
+              { value: timeLeft.days, label: "дн" },
+              { value: timeLeft.hours, label: "ч" },
+              { value: timeLeft.minutes, label: "мин" },
+              { value: timeLeft.seconds, label: "сек" },
             ].map((item, i) => (
               <div key={i} className="text-center">
-                <div className="text-2xl font-bold text-accent font-mono">
-                  {String(item.value).padStart(2, '0')}
-                </div>
+                <div className="text-2xl font-bold text-accent font-mono">{String(item.value).padStart(2, "0")}</div>
                 <div className="text-primary-foreground/70 text-xs">{item.label}</div>
               </div>
             ))}
@@ -142,8 +139,14 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
             <Button variant="cta" type="submit" className="w-full">
-              Получить первую консультацию и сэкономить до 15 тыс. руб.
+              Получить первую консультацию
             </Button>
+
+            {/* Caption под кнопкой */}
+            <div className="mt-3 flex items-center justify-center gap-2 text-sm text-accent w-full">
+              {/* <CheckCircle className="w-4 h-4 flex-shrink-0" /> */}
+              <span className="text-center break-words">И сэкономьте до 15 тыс. руб.</span>
+            </div>
           </form>
         ) : (
           <div className="text-center py-4">
@@ -159,68 +162,68 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Offers = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
   const [timeLeft, setTimeLeft] = useState({
     days: 2,
     hours: 3,
     minutes: 45,
     seconds: 30,
-  });
+  })
 
   // Show popup after 8 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsPopupOpen(true);
-    }, 8000);
+      setIsPopupOpen(true)
+    }, 8000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   // Timer countdown
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { days, hours, minutes, seconds } = prev;
-        
-        seconds--;
+      setTimeLeft((prev) => {
+        let { days, hours, minutes, seconds } = prev
+
+        seconds--
         if (seconds < 0) {
-          seconds = 59;
-          minutes--;
+          seconds = 59
+          minutes--
         }
         if (minutes < 0) {
-          minutes = 59;
-          hours--;
+          minutes = 59
+          hours--
         }
         if (hours < 0) {
-          hours = 23;
-          days--;
+          hours = 23
+          days--
         }
         if (days < 0) {
-          days = 0;
-          hours = 0;
-          minutes = 0;
-          seconds = 0;
+          days = 0
+          hours = 0
+          minutes = 0
+          seconds = 0
         }
-        
-        return { days, hours, minutes, seconds };
-      });
-    }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+        return { days, hours, minutes, seconds }
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   return (
     <>
       <section id="offers" className="section-padding bg-muted">
         <div className="container-custom" ref={ref}>
-          <div 
+          <div
             className={`bg-gradient-to-br from-primary via-secondary to-primary rounded-xl p-6 md:p-10 lg:p-12 border-2 border-accent shadow-2xl ${
-              inView ? 'fade-in-up' : 'opacity-0'
+              inView ? "fade-in-up" : "opacity-0"
             }`}
           >
             <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -230,13 +233,13 @@ const Offers = () => {
                   <Gift className="w-4 h-4" />
                   Специальное предложение
                 </div>
-                
+
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-foreground mb-4">
                   <span className="text-accent">Первый месяц бесплатно</span> на первую услугу
                 </h2>
-                
+
                 <p className="text-primary-foreground/80 text-lg mb-6">
-                  В 2026 издержки вырастут — начните бесплатно и приумножьте капитал! 
+                  В 2026 издержки вырастут — начните бесплатно и приумножьте капитал!
                   <span className="text-accent font-medium"> Сэкономьте до 20 000 рублей!</span>
                 </p>
 
@@ -262,18 +265,18 @@ const Offers = () => {
                   <Clock className="w-6 h-6 text-accent" />
                   <span className="text-primary-foreground text-lg font-medium">До конца акции:</span>
                 </div>
-                
+
                 <div className="grid grid-cols-4 gap-4">
                   {[
-                    { value: timeLeft.days, label: 'Дней' },
-                    { value: timeLeft.hours, label: 'Часов' },
-                    { value: timeLeft.minutes, label: 'Минут' },
-                    { value: timeLeft.seconds, label: 'Секунд' },
+                    { value: timeLeft.days, label: "Дней" },
+                    { value: timeLeft.hours, label: "Часов" },
+                    { value: timeLeft.minutes, label: "Минут" },
+                    { value: timeLeft.seconds, label: "Секунд" },
                   ].map((item, i) => (
                     <div key={i} className="text-center">
                       <div className="bg-primary rounded-lg p-3 mb-2">
                         <div className="text-3xl md:text-4xl font-bold text-accent font-mono">
-                          {String(item.value).padStart(2, '0')}
+                          {String(item.value).padStart(2, "0")}
                         </div>
                       </div>
                       <div className="text-primary-foreground/70 text-xs">{item.label}</div>
@@ -281,9 +284,7 @@ const Offers = () => {
                   ))}
                 </div>
 
-                <div className="text-center mt-4 text-primary-foreground/60 text-sm">
-                  Срок действия: до 31.01.2026
-                </div>
+                <div className="text-center mt-4 text-primary-foreground/60 text-sm">Срок действия: до 31.01.2026</div>
               </div>
             </div>
           </div>
@@ -292,7 +293,7 @@ const Offers = () => {
 
       <OfferPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} />
     </>
-  );
-};
+  )
+}
 
-export default Offers;
+export default Offers
