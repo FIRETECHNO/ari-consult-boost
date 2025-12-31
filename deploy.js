@@ -7,7 +7,7 @@ import fs from 'fs-extra';
 import path from 'path';
 
 // === КОНФИГУРАЦИЯ ===
-const BUCKET_NAME = 'ari-consult.ru';
+const BUCKET_NAME = 'www.ari-consult.ru';
 const BUILD_DIR = './dist'; // или './build' — укажите вашу папку сборки
 const REGION = 'ru-central1';
 const ENDPOINT = 'https://storage.yandexcloud.net';

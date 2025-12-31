@@ -103,8 +103,8 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-accent mb-4">Информация</h4>
             <div className="space-y-2 text-sm text-primary-foreground/70">
-              <div>ИНН: 1234567890</div>
-              <div>ОГРН: 0987654321</div>
+              <div>ИНН: 0726018495</div>
+              <div>ОГРН: 1170726004294</div>
               <button
                 onClick={() => {
                   alert(

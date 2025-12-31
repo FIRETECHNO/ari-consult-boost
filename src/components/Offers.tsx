@@ -80,7 +80,7 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
           <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <Gift className="w-8 h-8 text-accent" />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Первый месяц бесплатно!</h3>
+          <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Первая консультация бесплатно!</h3>
           <p className="text-muted-foreground">
             В 2026 издержки вырастут — начните бесплатно и{" "}
             <span className="text-accent font-bold">приумножьте капитал!</span>
@@ -111,7 +111,7 @@ const OfferPopup = ({ isOpen, onClose }: OfferPopupProps) => {
         {/* Price */}
         <div className="text-center mb-6">
           <div className="text-muted-foreground line-through text-lg">20 000 руб.</div>
-          <div className="text-3xl font-bold text-accent">0 руб. первый месяц</div>
+          <div className="text-3xl font-bold text-accent">0 руб. первая консультация</div>
           <div className="text-sm text-muted-foreground mt-1">Срок действия: до 31.01.2026</div>
         </div>
 
@@ -235,7 +235,7 @@ const Offers = () => {
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary-foreground mb-4">
-                  <span className="text-accent">Первый месяц бесплатно</span> на первую услугу
+                  <span className="text-accent">Первая консультация бесплатно</span>
                 </h2>
 
                 <p className="text-primary-foreground/80 text-lg mb-6">
@@ -246,7 +246,7 @@ const Offers = () => {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <div>
                     <div className="text-primary-foreground/60 line-through text-lg">20 000 руб.</div>
-                    <div className="text-3xl font-bold text-accent">0 руб. первый месяц</div>
+                    <div className="text-3xl font-bold text-accent">0 руб. первая консультация</div>
                   </div>
                   <Button variant="cta" size="lg" onClick={() => setIsPopupOpen(true)}>
                     Получить бесплатный месяц
